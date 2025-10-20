@@ -1,0 +1,59 @@
+\usepackage{packages}
+
+ \definecolor{redreport}{RGB}{228, 0, 75} 
+
+\renewcommand{\chaptermark}[1]{\markboth{\textit{\thechapter. #1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\textit{\thesection. #1}}{}}
+\renewcommand{\subsectionmark}[1]{\markright{\textit{\thesection. #1}}{}}
+\renewcommand{\subsubsectionmark}[1]{\markright{\textit{\thesection. #1}}{}}
+
+\titleformat{\chapter}[display]
+{\vspace{-80pt}\flushright\normalsize\huge\color{black}}%
+{\flushright\normalsize%
+{\fontsize{25}{25}\selectfont\hspace*{-1em}\rule[-2pt]{.1pt}{30pt}\hspace{0.5em}\raisebox{4.5pt}{\thechapter}}}%
+{10pt}%
+{\huge\scshape\textls[50]}%
+
+\titleformat{\section}[block]
+{\vspace{-40pt}\flushleft\normalsize\huge\color{black}}%
+{\flushleft\normalsize%
+{\fontsize{15}{15}\selectfont\hspace*{-1em}\rule[-2pt]{.1pt}{18pt}\hspace{0.5em}\raisebox{1pt}{\thesection}}}%
+{10pt}%
+{\LARGE\scshape\textls[50]}%
+
+\titleformat{\subsection}[block]
+{\vspace{-40pt}\flushleft\normalsize\huge\color{black}}%
+{\flushleft\normalsize%
+{\fontsize{12}{12}\selectfont\hspace*{-1.25em}\rule[-2pt]{.1pt}{15pt}\hspace{0.5em}\raisebox{0.5pt}{\thesubsection}}}%
+{6pt}%
+{\Large\scshape\textls[50]}%
+
+\titleformat{\subsubsection}[block]
+{\flushleft\normalsize\huge\color{black}}%
+{\flushleft\normalsize%
+{\fontsize{12}{12}\selectfont\hspace*{-1.25em}\rule[-2pt]{.1pt}{15pt}\hspace{0.5em}\raisebox{0.5pt}{\thesubsubsection}}}%
+{6pt}%
+{\large\scshape\textls[50]}%
+
+
+\newcommand{\cartouche}[6]{
+    \begin{center}
+    \begin{tabularx}{\textwidth}{| 
+        >{\centering\arraybackslash}m{\dimexpr0.333\textwidth - 2\tabcolsep - \arrayrulewidth} | 
+        >{\centering\arraybackslash}m{\dimexpr0.333\textwidth - 2\tabcolsep - \arrayrulewidth} | 
+        >{\centering\arraybackslash}m{\dimexpr0.333\textwidth - 2\tabcolsep - \arrayrulewidth} |
+    }
+        \hline
+        Version : #1 & #2 & \today \\
+        \hline
+        \multirow{4}{*}{\parbox{\dimexpr0.333\textwidth - 2\tabcolsep - \arrayrulewidth}{\centering Auteur: \\ #3}} 
+        & \multirow{2}{*}{\parbox{\dimexpr0.333\textwidth - 2\tabcolsep - \arrayrulewidth}{\centering Relecteur: \\ #4}} 
+        & \multirow{4}{*}{\parbox{\dimexpr0.333\textwidth - 2\tabcolsep - \arrayrulewidth}{\centering Jalon: \\ #6}} \\
+        & & \\ % Espaceur pour le multirow
+        \cline{2-2}
+        & \multirow{2}{*}{\parbox{\dimexpr0.333\textwidth - 2\tabcolsep - \arrayrulewidth}{\centering Vérificateur: \\ #5}} & \\
+        & & \\ % Espaceur pour le multirow
+        \hline
+    \end{tabularx}
+    \end{center}
+}

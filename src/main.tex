@@ -1,0 +1,18 @@
+\documentclass[12pt]{report}
+
+\usepackage{packages, macro}
+
+\begin{document}
+
+\input{Chapitres/PageDeGarde}
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+%\tableofcontents
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
+\input{Chapitres/EDA}
+
+\nocite{*}
+%\printbibliography
+
+\end{document}
