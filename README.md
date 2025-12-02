@@ -5,6 +5,8 @@
 ![Jupyter](https://img.shields.io/badge/Notebook-Jupyter-orange)
 ![Scikit-Learn](https://img.shields.io/badge/ML-Scikit--Learn-yellow)
 ![XGBoost](https://img.shields.io/badge/Model-XGBoost-red)
+![LightGBM](https://img.shields.io/badge/Model-LightGBM-success)
+![CatBoost](https://img.shields.io/badge/Model-CatBoost-orange)
 ![Optuna](https://img.shields.io/badge/Tuning-Optuna-blueviolet)
 
 School project realized by Bonifas Olivier, Filloux Louis, and Gendronneau Maël.
@@ -40,4 +42,14 @@ We tested and compared several algorithms, including advanced boosting methods:
 3. Optimization
 Usage of Optuna to search for the best hyperparameters.
 
+## Conclusion & Key Takeaways
 
+We determined that the **Matthews Correlation Coefficient (MCC)** was the most reliable metric for our evaluation. Unlike Accuracy or F1-Score, MCC provided a more robust measure of the models' quality, particularly given the imbalanced nature of the dataset.
+
+## Authors
+
+* Bonifas Olivier
+* Filloux Louis
+* Gendronneau Maël
+
+This project was realized within an academic framework.
