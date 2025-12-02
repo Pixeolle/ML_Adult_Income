@@ -25,6 +25,7 @@ We developed binary classification models to predict whether an individual earns
 * **adult.csv**: The raw dataset used for the analysis.
 * **profile.html**: Detailed exploratory analysis report (generated via YData Profiling).
 * **requirements.txt**: List of necessary dependencies.
+* **source/**: Directory containing the LaTeX source code for the project report (main.tex, chapters, bibliography, etc.).
 
 ## Technologies and Methodology
 
