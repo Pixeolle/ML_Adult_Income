@@ -4,3 +4,5 @@ optuna
 xgboost
 lightgbm  
 catboost
+numpy
+seaborn
