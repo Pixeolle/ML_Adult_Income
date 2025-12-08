@@ -17,8 +17,9 @@ The primary objective of this project is to analyze the "Adult" Census dataset (
 
 We developed binary classification models to predict whether an individual earns more or less than $50,000 per year. The project emphasizes handling an imbalanced dataset and optimizing hyperparameters.
 
-[View Project Presentation (Google Slides)](https://docs.google.com/presentation/d/1U9sC-fVjrsW1mPk_5qYdJBMDkNg3EcZfit-crIOP9YY/edit?usp=sharing)
+[View Project Presentation n°1 (Google Slides)](https://docs.google.com/presentation/d/1U9sC-fVjrsW1mPk_5qYdJBMDkNg3EcZfit-crIOP9YY/edit?usp=sharing)
 
+[View Project Presentation n°2 (Google Slides)](https://docs.google.com/presentation/d/1hf35q015dDkWBabTn05KCftijaAF4FGojWyCeIjRlnE/edit?usp=sharing)
 ## Repository Content
 
 * **Adult_Income.ipynb**: The main notebook containing the entire code (EDA, Feature Engineering, Modeling, Stacking).
