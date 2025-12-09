@@ -1,0 +1,68 @@
+\thispagestyle{plain}
+
+\chapter{Modeling and Evaluation}
+\label{cp:mae}
+\vspace{1\baselineskip}
+
+
+Having prepared our data through rigorous EDA and Feature Engineering, we now move to the training phase. Our objective is to identify
+the algorithm that best maximizes the \textbf{Matthews Correlation Coefficient (MCC)}, our chosen metric for this imbalanced dataset.
+
+To ensure a rigorous comparison, we have established a standardized testing protocol that includes advanced hyperparameter optimization,
+a robust baseline, and a diverse selection of algorithms ranging from simple linear models to complex ensemble methods.
+
+\section{Optimization Strategy: Why Optuna?}
+
+To unlock the full potential of each algorithm, relying on default hyperparameters is insufficient. While \textit{Grid Search}
+is a traditional approach, it suffers from the "curse of dimensionality" and computational inefficiency.
+
+For this project, we used \textbf{Optuna}, a state-of-the-art hyperparameter optimization framework based on \textbf{Bayesian Optimization}.
+\begin{itemize}
+    \item \textbf{Smart Search:} Unlike Grid Search which tests combinations blindly, Optuna treats optimization as a sequential process.
+    It learns from the history of previous trials to construct a probabilistic model, focusing the search on the most promising regions of the
+    hyperparameter space.
+    \item \textbf{Pruning:} It incorporates an early-stopping mechanism. If a model performs poorly in the early stages of training compared
+    to previous trials, it is terminated immediately, freeing up resources to test more configurations.
+\end{itemize}
+This allows us to fine-tune complex parameters (such as tree depth, learning rates, and regularization) efficiently within a fixed time budget.
+
+\section{Establishing the Floor: The Baseline Model}
+
+Before evaluating predictive models, we must define the "zero-level" performance. We employ a \textbf{Dummy Classifier} using a stratified strategy.
+This baseline model generates predictions solely by respecting the class distribution of the training set (randomly predicting $>50K$ $\approw$ 24\%
+of the time), completely ignoring the feature data.
+\begin{itemize}
+    \item \textbf{Goal:} This establishes the minimum MCC score (expected to be $\approx 0$).
+    \item \textbf{Implication:} Any valid model must significantly outperform this baseline to prove it has learned actual patterns from the features.
+\end{itemize}
+
+\section{Candidate Algorithms}
+
+We have selected a broad spectrum of models to test the linearity and complexity of the dataset. We will present the results for each
+category, ranked by their MCC score on the test set.
+
+\textbf{1. Linear \& Simple Models:}
+Designed to test if a simple decision boundary is sufficient.
+\begin{itemize}
+    \item Logistic Regression (Baseline for linear models)
+    \item SGD Classifier (Stochastic Gradient Descent)
+    \item SVC (Support Vector Classifier)
+    \item KNN (K-Nearest Neighbors)
+    \item Gaussian Naive Bayes (Probabilistic approach)
+\end{itemize}
+
+\textbf{2. Tree-Based \& Boosting Ensembles:}
+Designed to capture non-linearities and complex interactions.
+\begin{itemize}
+    \item Decision Tree (Single estimator)
+    \item Random Forest \& Extra Trees (Bagging)
+    \item AdaBoost
+    \item \textbf{Gradient Boosting} (Scikit-Learn)
+    \item \textbf{XGBoost, LightGBM, CatBoost} (State-of-the-art implementations)
+\end{itemize}
+
+\section{Interpretability}
+Performance is not the only goal, understanding the "why" is equally important. Once the best model is identified, we will use
+\textbf{Feature Importance analysis} (leveraging XGBoost's gain metrics) to reveal which socioeconomic factors (e.g., Age, Capital, Education)
+are the primary drivers of income inequality in this dataset.
+

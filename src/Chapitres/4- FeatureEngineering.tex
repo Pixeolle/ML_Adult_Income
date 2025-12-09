@@ -1,0 +1,29 @@
+\thispagestyle{plain}
+
+\chapter{Feature Engineering}
+\label{cp:fe}
+\vspace{1\baselineskip}
+
+Based on our Exploratory Data Analysis, we will now construct two distinct feature engineering pipelines. This approach is necessary because linear
+models (e.g., Logistic Regression) and tree-based models (e.g., Random Forest) have different preprocessing requirements.
+
+\section{Pipeline for Linear Models}
+\begin{itemize}
+    \item NaN Imputation: Replace missing values in workclass and occupation with a new 'Unknown' category, as decided in our EDA.
+    \item Binning: Discretize the age and education-num features into categorical bins to capture their non-linear relationships with income.
+    \item Encoding: Convert all categorical features (including the newly binned ones) into numerical format using One-Hot Encoding.
+    \item Scaling: Standardize all numerical features to have a mean of 0 and a standard deviation of 1. This is crucial to prevent features with larger scales from dominating the model.
+\end{itemize}
+
+\section{Pipeline for Tree-Based Models}
+\begin{itemize}
+    \item NaN Imputation: Same as the linear pipeline (replace with 'Unknown').
+    \item Encoding: Convert all categorical features using One-Hot Encoding.
+    \item No Binning/Scaling: We will not apply binning or scaling. Tree models are not sensitive to the scale of features and are capable of capturing non-linear relationships on their own by finding optimal split points.
+\end{itemize}
+
+\section{Target Variable Encoding}
+
+Finally, we encode the target variable y from categorical ('$\le$50K', '>50K') to numerical (0, 1), which is required by the models.
+
+
