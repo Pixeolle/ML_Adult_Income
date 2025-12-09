@@ -41,7 +41,7 @@ of the time), completely ignoring the feature data.
 We have selected a broad spectrum of models to test the linearity and complexity of the dataset. We will present the results for each
 category, ranked by their MCC score on the test set.
 
-\textbf{1. Linear \& Simple Models:}
+\subsectiont{Linear \& Simple Models:}
 Designed to test if a simple decision boundary is sufficient.
 \begin{itemize}
     \item Logistic Regression (Baseline for linear models)
@@ -51,7 +51,7 @@ Designed to test if a simple decision boundary is sufficient.
     \item Gaussian Naive Bayes (Probabilistic approach)
 \end{itemize}
 
-\textbf{2. Tree-Based \& Boosting Ensembles:}
+\subsection{2. Tree-Based \& Boosting Ensembles:}
 Designed to capture non-linearities and complex interactions.
 \begin{itemize}
     \item Decision Tree (Single estimator)
@@ -60,6 +60,33 @@ Designed to capture non-linearities and complex interactions.
     \item \textbf{Gradient Boosting} (Scikit-Learn)
     \item \textbf{XGBoost, LightGBM, CatBoost} (State-of-the-art implementations)
 \end{itemize}
+
+
+\section{Result}
+
+\begin{table}[H]
+    \centering
+    \caption{Comparaison des performances des modèles}
+    \label{tab:model_comparison}
+
+    \begin{tabularx}{\textwidth}{l c X}
+
+        \toprule
+        \textbf{Modèle} & \textbf{MCC} & \textbf{Observations} \\
+        \midrule % Ligne du milieu
+
+        Logistic Regression & 0.54 & ____. \\
+        \addlinespace % Petit espace pour aérer
+
+        Random Forest & 0.63 &  plus long. \\
+        \addlinespace
+
+        XGBoost & \textbf{0.65} & Meilleure performance globale. Capture bien les interactions entre l'âge et les heures de travail. \\
+
+        \bottomrule % Belle ligne du bas
+
+    \end{tabularx}
+\end{table}
 
 \section{Interpretability}
 Performance is not the only goal, understanding the "why" is equally important. Once the best model is identified, we will use
