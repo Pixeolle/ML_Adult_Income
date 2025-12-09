@@ -216,6 +216,59 @@ While a logarithmic transformation is typically used for skewed distributions, i
 This transformation simplifies the signal for the model, focusing on the \textit{existence} of capital assets rather than the magnitude.
 
 
+\section{Heatmap \& Pairplot}
+
+To conclude our Exploratory Data Analysis, we examine the relationships between features to detect redundancy (multicollinearity) and assess the
+geometric complexity of the classification problem.
+
+\subsection{Correlation Heatmap: Verifying Feature Independence}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/heatmap.png}
+    \caption{Distribution of people who are born in us or not}
+    \label{fig:heatmap}
+\end{figure}
+
+\textbf{Observation:}
+The correlation matrix (Figure \ref{fig:heatmap}) reveals a remarkable absence of strong linear relationships between our numerical independent
+variables.
+\begin{itemize}
+    \item \textbf{No Multicollinearity:} All correlation coefficients are extremely low, with the highest value being merely $\rho = 0.14$ (between \texttt{educational-num} and \texttt{hours-per-week}). This is well below the threshold ($>0.7$ or $0.8$) typically associated with multicollinearity issues.
+    \item \textbf{Confirmation of Noise:} The \texttt{fnlwgt} feature displays near-zero correlation with all other variables (coefficients ranging from $-0.07$ to $-0.003$), reinforcing our previous univariate conclusion that it contains no predictive structure relative to other demographic factors.
+\end{itemize}
+
+\textbf{Conclusion:}
+
+The lack of correlation implies that our numerical features are essentially orthogonal, each variable provides unique, independent information to the model. We do not need to drop any features due to redundancy.
+
+\subsection{Pairplot Analysis: Assessing Separability}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/pairplot.png}
+    \caption{Distribution of people who are born in us or not}
+    \label{fig:pairplot}
+\end{figure}
+
+The Pairplot visualization (Figure \ref{fig:pairplot}) provides a global view of the interaction between features and the target class (\texttt{income}).
+
+\textbf{Observations:}
+\begin{enumerate}
+    \item \textbf{Lack of Linear Separability:} There is no combination of two features where a simple straight line can clearly separate the two classes (blue vs. orange). The classes overlap significantly in the feature space.
+    \item \textbf{Non-Linear Clusters:} Instead of linear trends, we observe dense clusters. For example, the interaction between \texttt{age} and \texttt{hours-per-week} forms a central "blob" where high earners are concentrated in the middle (middle-aged, full-time workers), surrounded by lower earners.
+    \item \textbf{Confirmation of \texttt{fnlwgt} Irrelevance:} The plots involving \texttt{fnlwgt} show a completely random scattering of blue and orange points, confirming it acts as pure noise.
+\end{enumerate}
+
+\section{Conclusion of EDA}
+
+Our exploratory analysis has established that while the raw data contains strong predictive signals (e.g., Age, Capital, Education),
+these signals are often \textbf{non-linear, sparse, or categorical}.
+
+Since the Pairplot demonstrates that the classes are not linearly separable in their raw form, simply feeding these variables into a linear
+model (like Logistic Regression) would yield suboptimal results. To bridge this gap, we must proceed to \textbf{Feature Engineering}. Our goal will
+be to restructure this information through binning, one-hot encoding, and noise reduction to create a dataset that maximizes the performance of
+our machine learning models.
 
 
 

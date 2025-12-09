@@ -29,7 +29,7 @@ This allows us to fine-tune complex parameters (such as tree depth, learning rat
 \section{Establishing the Floor: The Baseline Model}
 
 Before evaluating predictive models, we must define the "zero-level" performance. We employ a \textbf{Dummy Classifier} using a stratified strategy.
-This baseline model generates predictions solely by respecting the class distribution of the training set (randomly predicting $>50K$ $\approw$ 24\%
+This baseline model generates predictions solely by respecting the class distribution of the training set (randomly predicting $>50K$ $\approx$ 24\%
 of the time), completely ignoring the feature data.
 \begin{itemize}
     \item \textbf{Goal:} This establishes the minimum MCC score (expected to be $\approx 0$).
