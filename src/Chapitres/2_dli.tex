@@ -1,0 +1,50 @@
+\chapter{Data Loading and Inspection}
+\label{cp:dli}
+
+\section{Initial Data Structure}
+The initial inspection revealed a dataset of $48,842$ entries, with 6 numerical columns and 9 categorical (object-type) columns. Notably, the initial data check showed zero non-null values across all columns.
+
+
+\vspace{1 \baselineskip}
+\begin{center}
+\begin{tabular}{||c | c||} 
+ \hline
+ Qualitative variables & Quantitative variables \\ [1 ex] 
+ \hline\hline
+ Workclass & Age \\ [1ex] 
+ \hline
+ Marital-status & Fnlwgt \\ [1ex] 
+ \hline
+ Education & Educational-num \\ [1ex] 
+ \hline
+ Occupation & Capital-gain  \\ [1ex] 
+ \hline
+ Relationship & Capital-loss  \\ [1ex] 
+ \hline
+ Race & Hours-per-week  \\ [1ex] 
+ \hline
+ Gender & -  \\ [1ex] 
+ \hline
+ Native-Country & -  \\ [1ex] 
+ \hline
+ Income (target) & -  \\ [1ex] 
+ \hline
+\end{tabular}
+\end{center}
+
+
+\vspace{1 \baselineskip}
+\section{Handling Missing Values}
+\label{sec:handling_missing}
+The absence of null values was highly unusual and indicated that missing data was likely encoded with a special character, rather than the standard $\text{NaN}$ format. An inspection of the \texttt{workclass} values confirmed this, revealing the character '?'.
+
+To rectify this, we replaced all occurrences of the '?' character with $\text{np.nan}$ across the entire dataset. A subsequent count of true missing values revealed the following:
+
+\begin{itemize}
+    \item \texttt{workclass}: $2,799$ missing values
+    \item \texttt{occupation}: $2,809$ missing values
+    \item \texttt{native-country}: $857$ missing values
+\end{itemize}
+This represents a significant loss of information ($\approx 5.7\%$ of rows contain missing data in \texttt{workclass} or \texttt{occupation}). Therefore, we assumed that simply deleting these rows was a bad strategy. Our next $\text{EDA}$ phase was tasked with determining the most appropriate imputation strategy for these $\text{NaN}$ values.
+
+\vspace{2 \baselineskip}

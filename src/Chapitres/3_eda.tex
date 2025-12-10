@@ -21,11 +21,11 @@ Implication: This imbalance is a critical finding and has two major consequences
 \subsection{Metric we choose}
 
 While the F1-Score is a popular metric for imbalanced datasets, we have chosen the \textbf{Matthews Correlation Coefficient (MCC)} as our primary metric for model selection. This decision is based on a critical mathematical distinction we found on
-The Matthews correlation coefficient
+\textit{The Matthews correlation coefficient
 (MCC) is more reliable than balanced
 accuracy, bookmaker informedness, and
 markedness in two-class confusion matrix
-evaluation%\footcite{Chicco2021} :
+evaluation} \footcite{Chicco2021} :
 \begin{enumerate}
     \item \textbf{Symmetry vs. Asymmetry:} 
     The F1-Score represents the harmonic mean of Precision and Recall. It focuses almost exclusively on the positive class (the minority class). It ignores the count of True Negatives (TN). 
@@ -41,7 +41,7 @@ evaluation%\footcite{Chicco2021} :
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{ll}
+    \begin{tabular}{|l|l|}
         \toprule
         \textbf{MCC Value} & \textbf{Interpretation} \\
         \midrule
@@ -111,7 +111,7 @@ Therefore, \textbf{Binning (Discretization)} is the optimal solution. By segment
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/born_us.png}
-    \caption{Distribution of people who are born in us or not}
+    \caption{Distribution of people born in the US or not.}
     \label{fig:native_country}
 \end{figure}
 
@@ -122,7 +122,7 @@ The \texttt{native-country} feature exhibits extreme class imbalance (see Figure
 \textbf{Feature Engineering Strategy:}
 Applying standard One-Hot Encoding would result in over 40 new columns, most of which would be sparse and lack statistical significance due to low sample sizes. This would unnecessarily increase the model's complexity.
 
-\textbf{Decision:} We opt for a **binary transformation** to capture the dominant signal:
+\textbf{Decision:} We opt for a \textbf{binary transformation} to capture the dominant signal:
 \begin{itemize}
     \item We create a single boolean feature, \texttt{born\_in\_usa}.
     \item \textbf{Mapping:} Individuals born in 'United-States' are mapped to \texttt{1} (True). All other countries, including \texttt{NaN} values, are grouped into the minority class \texttt{0} (False).
@@ -156,7 +156,7 @@ The distribution of \texttt{hours-per-week} (Figure \ref{fig:hours_analysis}) is
 
 \textbf{Feature Engineering Strategy:}
 Using the raw numerical value would force a linear relationship where "more hours = more money" at a constant rate, which fails to capture the specific "bonus" associated with hitting the full-time threshold.
-\textbf{Decision:} We will apply **domain-specific discretization** to capture these three distinct economic behaviors:
+\textbf{Decision:} We will apply \textbf{domain-specific discretization} to capture these three distinct economic behaviors:
 \begin{itemize}
     \item \texttt{Part-Time} ($<40h$): Often correlated with lower hourly wages.
     \item \texttt{Standard} ($=40h$): The baseline for the majority of the workforce.
@@ -215,6 +215,31 @@ While a logarithmic transformation is typically used for skewed distributions, i
 \end{itemize}
 This transformation simplifies the signal for the model, focusing on the \textit{existence} of capital assets rather than the magnitude.
 
+\section{Correlation between different classes}
+
+An interestig observation here is that male are more often married than female are. We have seen that married people tend to have an higher income. Since the model may learn that 'Married = High Income', the strong correlation between these variables leads it to infer that 'Male = High Income' by association. This is a great example of sociological bias embedded in the data, where the model may uses gender as a proxy for wealth.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{Images/correlation_classes.png}
+    \caption{An example of sociological biais. }
+    \label{fig:heatmap}
+\end{figure}
+
+
+\section{Principal Component Analysis (PCA)}
+
+We decided not to use PCA because it removes interpretability. Our goal is to understand which factors influence income, and PCA replaces meaningful variables with abstract components. It also brings no performance gain, since our dataset is small and PCA does not separate the classes better than the original features. Also, PCA handles mixed numerical-categorical data poorly and leads to information loss.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Images/PCA.png}
+    \caption{PCA applied to our dataset. }
+    \label{fig:heatmap}
+\end{figure}
+
+It seems that PCA reveals a global separation trend, with high-income profiles clustering towards the extremes of the principal axes. However, the significant central overlap shows us that a simple linear boundary is insufficient for high accuracy. We therefore kept PCA only as a visualization, not as part of our final modeling pipeline. 
+
 
 \section{Heatmap \& Pairplot}
 
@@ -225,8 +250,8 @@ geometric complexity of the classification problem.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Images/heatmap.png}
-    \caption{Distribution of people who are born in us or not}
+    \includegraphics[width=0.6\textwidth]{Images/heatmap.png}
+    \caption{Distribution of numerical features' correlation}
     \label{fig:heatmap}
 \end{figure}
 
@@ -246,8 +271,8 @@ The lack of correlation implies that our numerical features are essentially orth
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Images/pairplot.png}
-    \caption{Distribution of people who are born in us or not}
+    \includegraphics[width=0.6\textwidth]{Images/pairplot.png}
+    \caption{Pairplot Analysis of Numerical Features}
     \label{fig:pairplot}
 \end{figure}
 
@@ -269,11 +294,4 @@ Since the Pairplot demonstrates that the classes are not linearly separable in t
 model (like Logistic Regression) would yield suboptimal results. To bridge this gap, we must proceed to \textbf{Feature Engineering}. Our goal will
 be to restructure this information through binning, one-hot encoding, and noise reduction to create a dataset that maximizes the performance of
 our machine learning models.
-
-
-
-
-
-
-
 

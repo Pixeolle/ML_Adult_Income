@@ -1,0 +1,26 @@
+\newgeometry{margin=2.5cm} % Marges
+
+\chapter{Introduction}
+\label{cp:introduction}
+
+\vspace{2 \baselineskip}
+\section{Business Case and Project Objective}
+The primary objective of this project is to analyze the 1994 \emph{Adult} Census dataset to identify key factors associated with income levels. We aim to build and evaluate a binary classification model that accurately predicts whether an individual earns more or less than $\$50,000$ per year. This can help identify groups with a higher chance of earning more, which is useful for marketing, policy decisions, or planning. 
+
+\vspace{2 \baselineskip}
+\section{Methodology and Plan}
+We will develop a binary classification model to predict income levels by following a structured, step-by-step workflow:
+
+\begin{itemize}
+    \item \textbf{Data Loading and Inspection (DLI)}: We will load the dataset, clean it, deal with missing values, and analyze the class balance. 
+    \item \textbf{Exploratory Data Analysis (EDA)}: This is the investigation phase. We will dive deep into the data to uncover trends, visualize distributions, and analyze the relationships between different features and the target variable (\emph{income}).
+    \item \textbf{Feature Engineering (FE)}: Based directly on the insights from our EDA, we will clean, transform, and create new features to prepare a dataset that our models can understand and learn from effectively.
+    \item \textbf{Modeling and Evaluation}: We will build several classification models (from a simple baseline to complex ones), train them on our engineered data, and evaluate their performance using appropriate metrics to select the best one.
+    \item \textbf{Models Comparison and Conclusion}: We will select the most efficient model, interpreting its results to draw final conclusions and assess how the business case has been addressed.
+\end{itemize}
+
+\vspace{2 \baselineskip}
+\section{The Dataset}
+This dataset, sourced from the UCI Machine Learning Repository, contains $48,842$ rows and 15 columns (14 features and 1 target variable). The features are a mix of demographic and employment-related variables, including both numerical and categorical data types. Lastly, the target variable is the income (either '$\le\$50\text{K}$' or '$>\$50\text{K}$').
+
+\vspace{2 \baselineskip}

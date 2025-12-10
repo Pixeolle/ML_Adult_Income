@@ -1,0 +1,44 @@
+\chapter{Feature Engineering (FE)}
+\label{cp:fe}
+
+\section{Dual Dataset Approach}
+Based on our EDA, we constructed two distinct feature engineering pipelines to accommodate the differing preprocessing requirements of linear and tree-based models. 
+\begin{enumerate}
+    \item \textbf{Pipeline for Linear Models ($\mathbf{X_{\text{linear}}}$)}: Involves comprehensive transformations (Binning, $\text{OHE}$, and Scaling) to meet the assumptions of linear models (e.g., Logistic Regression).
+    \item \textbf{Pipeline for Tree-Based Models ($\mathbf{X_{\text{tree}}}$)}: A simpler approach using $\text{OHE}$ only, as tree-based models are robust to feature scale and capable of handling non-linear relationships natively.
+\end{enumerate}
+
+\vspace{1 \baselineskip}
+\section{Target Variable Encoding}
+The target variable $\mathbf{y}$ was encoded from categorical ($\le\$50\text{K}, >\$50\text{K}$) to numerical: $\mathbf{0}$ and $\mathbf{1}$.
+
+\vspace{1 \baselineskip}
+\section{Common Preprocessing and Feature Dropping}
+\begin{itemize}
+    \item \textbf{Missing Value Imputation}: Missing values in \texttt{workclass} and \texttt{occupation} were imputed with the new level $\mathbf{'Unknown'}$.
+    \item \textbf{Feature Dropping}: The redundant \texttt{education} column and the non-predictive \texttt{fnlwgt} column were dropped from both datasets.
+\end{itemize}
+
+\vspace{1 \baselineskip}
+\section{The Linear Model Pipeline in Detail}
+This pipeline involved specific steps to prepare the data for linear algorithms:
+\begin{itemize}
+    \item \textbf{Feature Creation and Dropping}: We dropped and replaced the $\texttt{capital-gain}$ and $\texttt{capital-loss}$ features by the single categorical feature $\texttt{capital\_change}$. The original $\texttt{age}$, $\texttt{educational-num}$, $\texttt{hours-per-week}$, $\texttt{relationship}$, and $\texttt{native-country}$ columns were all dropped as well.
+    \item \textbf{Binning (Discretization)}:
+    \begin{enumerate}
+        \item $\texttt{age}$: Binned into 'Young', 'Adult', 'Senior'.
+        \item $\texttt{educational-num}$: Binned into 'Below-HS', 'HS-grad', 'College', 'Graduate'.
+        \item $\texttt{hours-per-week}$: Binned into 'Part-time', 'Standard', 'Overtime'.
+    \end{enumerate}
+    \item \textbf{Binary Features}: New binary features \texttt{is\_married} and \texttt{is\_from\_usa} were created to capture the predictive power of the complex \texttt{relationship} and high-cardinality \texttt{native-country} features, respectively.
+    \item \textbf{Encoding and Scaling}: All resulting categorical features were converted using $\text{OHE}$. Standardization ($\text{StandardScaler}$) was then applied to all features after the train-test split.
+\end{itemize}
+
+\vspace{1 \baselineskip}
+\section{The Tree-Based Model Pipeline in Detail}
+\begin{itemize}
+    \item \textbf{Final $\text{NaN}$ Imputation}: The remaining $\text{NaN}$ values in \texttt{native-country} were imputed with 'Unknown'.
+    \item \textbf{Encoding}: All categorical features were converted using $\text{OHE}$. The original numerical features (\texttt{age}, \texttt{educational-num}, \texttt{hours-per-week}, $\texttt{capital-gain}$, and $\texttt{capital-loss}$) were retained in their raw numerical form.
+\end{itemize}
+
+\vspace{2 \baselineskip}

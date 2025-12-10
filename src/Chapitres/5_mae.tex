@@ -2,8 +2,6 @@
 
 \chapter{Modeling and Evaluation}
 \label{cp:mae}
-\vspace{1\baselineskip}
-
 
 Having prepared our data through rigorous EDA and Feature Engineering, we now move to the training phase. Our objective is to identify
 the algorithm that best maximizes the \textbf{Matthews Correlation Coefficient (MCC)}, our chosen metric for this imbalanced dataset.
@@ -41,7 +39,7 @@ of the time), completely ignoring the feature data.
 We have selected a broad spectrum of models to test the linearity and complexity of the dataset. We will present the results for each
 category, ranked by their MCC score on the test set.
 
-\subsectiont{Linear \& Simple Models:}
+\subsection{Linear \& Simple Models:}
 Designed to test if a simple decision boundary is sufficient.
 \begin{itemize}
     \item Logistic Regression (Baseline for linear models)
@@ -66,27 +64,40 @@ Designed to capture non-linearities and complex interactions.
 
 \begin{table}[H]
     \centering
-    \caption{Comparaison des performances des modèles}
-    \label{tab:model_comparison}
-
-    \begin{tabularx}{\textwidth}{l c X}
-
+    \label{tab:model_results}
+    \begin{tabular}{||l|c|c|c|c||}
         \toprule
-        \textbf{Modèle} & \textbf{MCC} & \textbf{Observations} \\
-        \midrule % Ligne du milieu
+        \textbf{Model} & \textbf{Dataset} & \textbf{MCC} & \textbf{AUC-ROC} & \textbf{F1-Weighted} \\
+        \midrule
+        \midrule
+        Dummy Classifier (Baseline) & $\text{X}_{\text{linear}}$ & $ 0.00$ & $ 0.50$ & $ 0.64$ \\
+        \midrule
+        \textbf{Linear \& Simple Models} & & & & \\
+        Logistic Regression & $\text{X}_{\text{linear}}$ & $0.54$ & $0.89$ & $0.83$ \\
+        SVC & $\text{X}_{\text{linear}}$ & $0.54$ & $\text{N/A}$ & $0.83$ \\
+        Gaussian Naive Bayes & $\text{X}_{\text{linear}}$ & $0.46$ & $0.85$ & $0.78$ \\
+        \midrule
+        \textbf{Tree-Based Ensembles} & & & & \\
+        Random Forest & $\text{X}_{\text{tree}}$ & $0.63$ & $0.92$ & $0.85$ \\
+        XGBoost & $\text{X}_{\text{tree}}$ & $ 0.645$ & $0.93$ & $ 0.86$ \\
+        LightGBM & $\text{X}_{\text{tree}}$ & $ 0.645$ & $0.93$ & $ 0.86$ \\
+        CatBoost & $\text{X}_{\text{tree}}$ & $0.638$ & $0.93$ & $0.86$ \\
+        \textbf{Gradient Boosting Classifier} & $\mathbf{X_{\text{tree}}}$ & $\mathbf{0.6477}$ & $\mathbf{0.93}$ & $\mathbf{0.86}$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Comparison of Model Performance on Test Set}
 
-        Logistic Regression & 0.54 & ____. \\
-        \addlinespace % Petit espace pour aérer
-
-        Random Forest & 0.63 &  plus long. \\
-        \addlinespace
-
-        XGBoost & \textbf{0.65} & Meilleure performance globale. Capture bien les interactions entre l'âge et les heures de travail. \\
-
-        \bottomrule % Belle ligne du bas
-
-    \end{tabularx}
 \end{table}
+
+\clearpage
+
+\section{Stacking}
+
+We built a stacking ensemble using 4 base models and a linear regression meta-learner. Gradient Boosting performed so well on its own that the stacked model quickly reached a performance ceiling around 0.647.
+
+Including too many models in the stack slightly reduced performance, and when we removed the weaker models, performance improved again. This indicates that the least effective models negatively affected the meta-learner instead of contributing useful information.
+
+A few meta-models slightly exceeded this score, but only when using another boosting model as the meta-learner. Since the improvement was minimal compared to the added complexity, we concluded that it was not worth using.
 
 \section{Interpretability}
 Performance is not the only goal, understanding the "why" is equally important. Once the best model is identified, we will use
